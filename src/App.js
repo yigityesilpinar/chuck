@@ -24,7 +24,7 @@ const CenterBlock = styled('div')`
 const Select = styled(RCSelect)`
   position: absolute;
   top: 0;
-  right: 0;
+  left: 0;
   width: 10em;
   margin: 1em;
 `;
