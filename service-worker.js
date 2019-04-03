@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/chuck/precache-manifest.6fd15c7d177b853240b0542557b02767.js"
+  "http://sidletsky.github.io/chuck/precache-manifest.a70442ee472f226e500082192973caff.js"
 );
 
 workbox.clientsClaim();
@@ -28,7 +28,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("/chuck/index.html", {
+workbox.routing.registerNavigationRoute("http://sidletsky.github.io/chuck/index.html", {
   
   blacklist: [/^\/_/,/\/[^\/]+\.[^\/]+$/],
 });
