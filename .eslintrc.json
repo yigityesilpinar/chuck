@@ -1,3 +1,55 @@
 {
-  "extends": "react-app"
+  "extends" : ["airbnb", "prettier/react"],
+  "plugins" : [
+    "prettier"
+  ],
+  "settings": {
+    "import/resolver": {
+      "babel-module": {}
+    }
+  },
+  "rules": {
+    "import/prefer-default-export": "off",
+    "implicit-arrow-linebreak": "off",
+    "import/no-unresolved": "off",
+    "comma-dangle": "off",
+    "import/no-cycle": true,
+    "react/destructuring-assignment": ["<enabled>", "never"],
+    "no-unused-expressions": ["error", {"allowTernary": true, "allowShortCircuit": true} ],
+    "react/jsx-filename-extension": [1, {"extensions": [".js", ".jsx"]}],
+    "prettier/prettier": ["error", { "singleQuote": true }],
+    "arrow-parens": 0,
+    "jsx-a11y/anchor-is-valid": [ "error", { "components": [ "Link" ], "specialLink": [ "to" ] } ],
+    "function-paren-newline": ["error", "consistent"],
+    "space-before-function-paren": ["error", {
+      "anonymous": "never",
+      "named": "never",
+      "asyncArrow": "always"
+    }],
+    "no-mixed-operators": [
+      "off",
+      {
+        "groups": [
+          ["+", "-", "", "/", "%", "*"]
+        ]
+      }
+    ],
+    "object-curly-newline": ["error", { "multiline": true, "minProperties": 8, "consistent" : true}],
+    "jsx-a11y/label-has-for": [ 2, {
+      "components": [ "Label" ],
+      "required": {
+        "every": [ "nesting", "id" ]
+      },
+      "allowChildren": true
+    }],
+    "react/no-did-mount-set-state": [false]
+
+  },
+  "parser": "babel-eslint",
+  "env": {
+    "browser": true,
+    "jest": true
+  },
+  "globals": {
+  }
 }
