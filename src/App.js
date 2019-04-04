@@ -134,6 +134,7 @@ class App extends Component {
           onChange={this.changeOptionCategory}
           defaultValue={selectedCategory}
           value={selectedCategory}
+          isSearchable={false}
         />
         <FullScreen>
           <CenterBlock>{value}</CenterBlock>
