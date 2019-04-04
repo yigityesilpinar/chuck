@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "https://sidletsky.github.io/chuck/precache-manifest.fa0db20aebf29998197e6fa9ae0d75e0.js"
+  "https://sidletsky.github.io/chuck/precache-manifest.5dd7e0f85f25d54ad88d116a671e54f0.js"
 );
 
 workbox.clientsClaim();

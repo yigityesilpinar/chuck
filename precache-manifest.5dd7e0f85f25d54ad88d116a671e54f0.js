@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "61969f4c7bed04d7d312",
+    "revision": "ee22def773aaffc2c06a",
     "url": "https://sidletsky.github.io/chuck/static/css/main.acd0f0ed.chunk.css"
   },
   {
-    "revision": "61969f4c7bed04d7d312",
-    "url": "https://sidletsky.github.io/chuck/static/js/main.8e6c1d51.chunk.js"
+    "revision": "ee22def773aaffc2c06a",
+    "url": "https://sidletsky.github.io/chuck/static/js/main.148c2ade.chunk.js"
   },
   {
     "revision": "3844887c96e2473f374b",
@@ -16,7 +16,7 @@ self.__precacheManifest = [
     "url": "https://sidletsky.github.io/chuck/static/js/2.b49eef27.chunk.js"
   },
   {
-    "revision": "fcbcb83d9a4c4c631ab2f4bc85806e26",
+    "revision": "daeb86e0aad90795ee16e26c46e3a636",
     "url": "https://sidletsky.github.io/chuck/index.html"
   }
 ];

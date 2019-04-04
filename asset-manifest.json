@@ -1,13 +1,13 @@
 {
   "main.css": "https://sidletsky.github.io/chuck/static/css/main.acd0f0ed.chunk.css",
-  "main.js": "https://sidletsky.github.io/chuck/static/js/main.8e6c1d51.chunk.js",
-  "main.js.map": "https://sidletsky.github.io/chuck/static/js/main.8e6c1d51.chunk.js.map",
+  "main.js": "https://sidletsky.github.io/chuck/static/js/main.148c2ade.chunk.js",
+  "main.js.map": "https://sidletsky.github.io/chuck/static/js/main.148c2ade.chunk.js.map",
   "runtime~main.js": "https://sidletsky.github.io/chuck/static/js/runtime~main.27c849eb.js",
   "runtime~main.js.map": "https://sidletsky.github.io/chuck/static/js/runtime~main.27c849eb.js.map",
   "static/js/2.b49eef27.chunk.js": "https://sidletsky.github.io/chuck/static/js/2.b49eef27.chunk.js",
   "static/js/2.b49eef27.chunk.js.map": "https://sidletsky.github.io/chuck/static/js/2.b49eef27.chunk.js.map",
   "index.html": "https://sidletsky.github.io/chuck/index.html",
-  "precache-manifest.fa0db20aebf29998197e6fa9ae0d75e0.js": "https://sidletsky.github.io/chuck/precache-manifest.fa0db20aebf29998197e6fa9ae0d75e0.js",
+  "precache-manifest.5dd7e0f85f25d54ad88d116a671e54f0.js": "https://sidletsky.github.io/chuck/precache-manifest.5dd7e0f85f25d54ad88d116a671e54f0.js",
   "service-worker.js": "https://sidletsky.github.io/chuck/service-worker.js",
   "static/css/main.acd0f0ed.chunk.css.map": "https://sidletsky.github.io/chuck/static/css/main.acd0f0ed.chunk.css.map"
 }
