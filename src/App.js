@@ -5,7 +5,7 @@ import RCSelect from 'react-select';
 import { getRandomJoke } from 'api/jokes';
 import { getCategories } from 'api/categories';
 
-import { keyCodes } from 'src/dict';
+import { keyCodes } from './dict';
 
 const FullScreen = styled('div')`
   align-items: center;
@@ -43,10 +43,12 @@ class App extends Component {
     this.getJoke(this.state.selectedCategory.value);
     this.getCategories();
     document.addEventListener('keydown', this.handleKeyboardDown);
+    document.addEventListener('click', this.handleMouseClick);
   }
 
   componentWillUnmount() {
     document.removeEventListener('keydown', this.handleKeyboardDown);
+    document.addEventListener('click', this.handleMouseClick);
   }
 
   getJoke = async category => {
@@ -76,6 +78,10 @@ class App extends Component {
     } else if (keyCode >= keyCodes.ArrowLeft && keyCode <= keyCodes.ArrowDown) {
       this.onArrowChangeCategory(keyCode);
     }
+  };
+
+  handleMouseClick = () => {
+    this.getJoke(this.state.selectedCategory.value);
   };
 
   onArrowChangeCategory = keyCode => {
