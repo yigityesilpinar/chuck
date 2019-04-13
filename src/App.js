@@ -1,11 +1,13 @@
-import React, { Component, Fragment } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import RCSelect from 'react-select';
+import useEventListener from '@use-it/event-listener';
 
 import { getRandomJoke } from 'api/jokes';
 import { getCategories } from 'api/categories';
 
 import { keyCodes } from './dict';
+import { getRandomJokes } from './api/jokes';
 
 const FullScreen = styled('div')`
   align-items: center;
@@ -32,116 +34,113 @@ const Select = styled(RCSelect)`
   margin: 1em;
 `;
 
-class App extends Component {
-  state = {
-    joke: {},
-    categories: [],
-    selectedCategory: { label: 'dev', value: 'dev' }
-  };
+const App = () => {
+  const [jokes, setJokes] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [currentCategory, setCurrentCategory] = useState({
+    label: 'dev',
+    value: 'dev'
+  });
 
-  componentDidMount() {
-    this.getJoke(this.state.selectedCategory.value);
-    this.getCategories();
-    document.addEventListener('keydown', this.handleKeyboardDown);
-    document.addEventListener('click', this.handleMouseClick);
-  }
+  useEffect(() => {
+    const execute = async () => {
+      const fetchedCategories = await getCategories();
+      if (fetchedCategories) {
+        const parsedCategories = fetchedCategories.map(cat => ({
+          label: cat,
+          value: cat
+        }));
+        setCategories(parsedCategories);
+      }
+    };
+    execute();
+  }, []);
 
-  componentWillUnmount() {
-    document.removeEventListener('keydown', this.handleKeyboardDown);
-    document.addEventListener('click', this.handleMouseClick);
-  }
+  useEffect(() => {
+    const execute = async () => {
+      const fetchedJokes = await getRandomJokes(currentCategory.value);
+      if (fetchedJokes) {
+        setJokes(fetchedJokes);
+      }
+    };
+    execute();
+  }, [currentCategory.value]);
 
-  getJoke = async category => {
-    const joke = await getRandomJoke(category);
-    if (joke) {
-      this.setState({ joke });
+  const getJoke = async category => {
+    const fetchedJoke = await getRandomJoke(category.value);
+    if (fetchedJoke) {
+      setJokes(oldJokes => [...oldJokes.splice(1), fetchedJoke]);
     }
   };
 
-  getCategories = async () => {
-    const categories = await getCategories();
-    if (categories) {
-      const parsedCategories = categories.map(cat => ({
-        label: cat,
-        value: cat
-      }));
-      this.setState({ categories: parsedCategories });
-    }
+  const useMouseClick = () => {
+    useEventListener('click', () => {
+      getJoke(currentCategory);
+    });
   };
 
-  handleKeyboardDown = ({ keyCode }) => {
-    if (
-      (keyCode >= keyCodes.KeyA && keyCode <= keyCodes.KeyZ) ||
-      keyCode === keyCodes.Space
-    ) {
-      this.getJoke(this.state.selectedCategory.value);
-    } else if (keyCode >= keyCodes.ArrowLeft && keyCode <= keyCodes.ArrowDown) {
-      this.onArrowChangeCategory(keyCode);
-    }
-  };
-
-  handleMouseClick = () => {
-    this.getJoke(this.state.selectedCategory.value);
-  };
-
-  onArrowChangeCategory = keyCode => {
-    const { selectedCategory, categories } = this.state;
+  const changeCategoryWithKeyboard = keyCode => {
     const currentCategoryIndex = categories
       .map(cat => cat.value)
-      .indexOf(selectedCategory.value);
+      .indexOf(currentCategory.value);
     if (keyCode === keyCodes.ArrowUp || keyCode === keyCodes.ArrowLeft) {
       if (currentCategoryIndex > 0) {
-        this.changeOptionCategory(categories[currentCategoryIndex - 1]);
+        setCurrentCategory(categories[currentCategoryIndex - 1]);
       } else {
-        this.changeOptionCategory(categories[categories.length - 1]);
+        setCurrentCategory(categories[categories.length - 1]);
       }
     } else if (
       keyCode === keyCodes.ArrowRight ||
       keyCode === keyCodes.ArrowDown
     ) {
       if (currentCategoryIndex === categories.length - 1) {
-        this.changeOptionCategory(categories[0]);
+        setCurrentCategory(categories[0]);
       } else {
-        this.changeOptionCategory(categories[currentCategoryIndex + 1]);
+        setCurrentCategory(categories[currentCategoryIndex + 1]);
       }
     }
   };
 
-  changeOptionCategory = category => {
-    this.setState({ selectedCategory: category });
-    this.getJoke(category.value);
+  const useKeydown = () => {
+    useEventListener('keydown', ({ keyCode }) => {
+      if (
+        (keyCode >= keyCodes.KeyA && keyCode <= keyCodes.KeyZ) ||
+        keyCode === keyCodes.Space
+      ) {
+        getJoke(currentCategory);
+      } else if (
+        keyCode >= keyCodes.ArrowLeft &&
+        keyCode <= keyCodes.ArrowDown
+      ) {
+        changeCategoryWithKeyboard(keyCode);
+      }
+    });
   };
 
-  render() {
-    const {
-      joke: { value },
-      categories,
-      selectedCategory
-    } = this.state;
-    return (
-      <Fragment>
-        <Select
-          theme={theme => ({
-            ...theme,
-            borderRadius: 0,
-            colors: {
-              ...theme.colors,
-              primary25: 'lightgrey',
-              primary: 'black'
-            }
-          })}
-          options={categories}
-          onChange={this.changeOptionCategory}
-          defaultValue={selectedCategory}
-          value={selectedCategory}
-          isSearchable={false}
-        />
-        <FullScreen>
-          <CenterBlock>{value}</CenterBlock>
-        </FullScreen>
-      </Fragment>
-    );
-  }
-}
+  useKeydown();
+  useMouseClick();
+  return (
+    <Fragment>
+      <Select
+        theme={theme => ({
+          ...theme,
+          borderRadius: 0,
+          colors: {
+            ...theme.colors,
+            primary25: 'lightgrey',
+            primary: 'black'
+          }
+        })}
+        options={categories}
+        onChange={setCurrentCategory}
+        value={currentCategory}
+        isSearchable={false}
+      />
+      <FullScreen>
+        <CenterBlock>{jokes[0] && jokes[0].value}</CenterBlock>
+      </FullScreen>
+    </Fragment>
+  );
+};
 
 export default App;
