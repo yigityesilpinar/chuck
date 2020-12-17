@@ -121,24 +121,28 @@ const App = () => {
   useMouseClick();
   return (
     <Fragment>
+    <div className="container">
+      <h1>App consuming Chuck Norris API</h1>
+      <h3>Categories</h3>
       <Select
         theme={theme => ({
           ...theme,
           borderRadius: 0,
           colors: {
             ...theme.colors,
-            primary25: 'lightgrey',
-            primary: 'black'
+            primary25: 'lightblue',
+            primary: 'gray'
           }
         })}
         options={categories}
         onChange={setCurrentCategory}
         value={currentCategory}
         isSearchable={false}
-      />
+        />
       <FullScreen>
         <CenterBlock>{jokes[0] && jokes[0].value}</CenterBlock>
       </FullScreen>
+    </div>
     </Fragment>
   );
 };
